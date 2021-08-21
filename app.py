@@ -19,9 +19,21 @@ def predict():
     prediction = model.predict(final_features)
 
     output = round(prediction[0], 2)
+    output = refine(output)
+    return render_template('index.html', prediction_text='The Employee Salary should be $ {}'.format(output) )
 
-    return render_template('index.html', prediction_text='Employee Salary should be $ {}'.format(output))
-
+def refine(value):
+    return(value*2)
+    
+   
+@server.route('/home', methods=['POST','GET'])
+def ecc():
+    return("This is home page")
+    
+@server.route('/office', methods=['POST','GET'])
+def packaging():
+    return '''<h1>The name is: {}</h1>'''.format(request.args.get('name'))
 
 if __name__ == "__main__":
     server.run(debug=True)
+    #server.run(host='0.0.0.0',port=8080)
